@@ -336,7 +336,7 @@ def transformer_modelf_solution_grille(model_finale):  # Pour transformer le mod
 
 
 def valider_solution_sat(reponse_grille, signes_grille): # Valider si la grille de solution réspecte les contraintes des signes
-    global model_finale
+    #global model_finale
     taille = len(reponse_grille)
     liste_signes = transformer_signes_bis(signes_grille)
     fnc = generer_fnc(taille, liste_signes, reponse_grille)
