@@ -83,7 +83,7 @@ jouerMusic(music_actuel, 0.2)
 
 est_musique = True # Une variable pour l'état du musique (On par défaut)
 def bouton_changerMusic_click():
-    global est_musique
+    #global est_musique
     sound = pygame.mixer.Sound("music/clickButton.mp3")
     sound.play()  # L'effet du clique
     if est_musique:
@@ -153,7 +153,7 @@ def bouton_effacer_click(frame, taille): #Permet d'effacer les chiffres saisis p
     frame.pack(padx=20, pady=40)  # on utilise padx et pady pour regler les espaces autour du tableau
 
 def bouton_valider_click(reponse_grille, signes_grille):  # Compare la réponse du joueur avec la solution
-    global solveur
+    #global solveur
     #global taille
     # On controlle tout d'abord si l'utilisateur met des valeurs unique (contrainte 1) afin de mettre dans la fonction (Pour l'optimisation de performance)
     for ligne in range(len(reponse_grille)):
