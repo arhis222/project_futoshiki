@@ -174,9 +174,11 @@ def bouton_valider_click(reponse_grille, signes_grille):  # Compare la réponse 
 ################# Fonction pour afficher le tableau ####################
 
 def validate_entry(content): # Contrôle si le saisi est un chiffre ou pas, on peut saisir que des chiffres
-    if not content.isdigit() or len(content) > 1:
-        return False
-    return True
+    if content == "": # si l'utilisateur efface le contenu de la cellule
+        return True
+    if content in "123456789" and len(content) == 1:
+        return True
+    return False
 
 def print_board(jeu_grille, signes, hint_grille, taille, affiche_tous=False):
     afficher_signes(signes)
@@ -212,11 +214,21 @@ def print_board(jeu_grille, signes, hint_grille, taille, affiche_tous=False):
         for i in range(taille):
             for j in range(taille): # Si la cellule est vide, print " "
                 if not hint_grille[i][j]: # Avec le widget 'Entry',on demande à l'utilisateur de taper un chiffre dans les cellules
-                    cell_entry = Entry(frame, font=("Helvetica", 20), width=2, relief="groove", validate="key", justify='center', state="normal", bg="#F0F0F0")
+                    entry_var = StringVar(); # Pour stocker la valeur de l'entrée (way interactive)
+
+                    cell_entry = Entry(frame, font=("Helvetica", 20), width=2, relief="groove", validate="key", justify='center', state="normal", bg="#F0F0F0", textvariable=entry_var)
                     cell_entry.grid(row=i * 2, column=j * 2, padx=5, pady=5)
                     cell_entry.config(justify='center')
-                    vcmd = (cell_entry.register(validate_entry), '%P') # On contrôle l'entrée d'utilisateur si c'est un chiffre ou pas
+
+                    vcmd = (frame.register(validate_entry), '%P') # On contrôle l'entrée d'utilisateur si c'est un chiffre ou pas
                     cell_entry.config(validatecommand=vcmd)
+
+                    # Permet d'effacer le contenu du cellule avec les touches Delete et Backspace
+                    def clear_on_delete(event, var=entry_var):
+                        var.set("")
+                    cell_entry.bind("<Delete>", clear_on_delete)
+                    cell_entry.bind("<BackSpace>", clear_on_delete)
+
                 else: # Affichage des chiffres
                     cell_label = Label(frame, text=str(jeu_grille[i][j]), font=("Helvetica", 19), width=2, height=1, relief="groove")
                     cell_label.grid(row=i * 2, column=j * 2, padx=pad_x, pady=pad_y)
