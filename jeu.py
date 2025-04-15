@@ -83,7 +83,7 @@ jouerMusic(music_actuel, 0.2)
 
 est_musique = True # Une variable pour l'état du musique (On par défaut)
 def bouton_changerMusic_click():
-    #global est_musique
+    global est_musique
     sound = pygame.mixer.Sound("music/clickButton.mp3")
     sound.play()  # L'effet du clique
     if est_musique:
@@ -100,7 +100,7 @@ def bouton_on_off_Music_click():
         est_musique = True  # mettre à jour l'état de la musique
 
 def bouton_resoudre_click(frame, taille):
-    #global jeu_grille, signes, hint_grille
+    global jeu_grille, signes, hint_grille
     sound = pygame.mixer.Sound("music/clickButton.mp3")
     sound.play()  # Effet du clic
     # Supprime des entrées d'utilisateur et conserve uniquement des indices/hints
@@ -115,7 +115,7 @@ def bouton_resoudre_click(frame, taille):
     print_board(jeu_grille, signes, hint_grille, taille, affiche_tous=True)
 
 def bouton_nouveauJeu_click(frame, taille, mode):
-    #global jeu_grille, signes, hint_grille, solveur
+    global jeu_grille, signes, hint_grille, solveur
     sound = pygame.mixer.Sound("music/clickButton.mp3")
     sound.play()  # l'effet du clique
     for widget in frame.winfo_children():
@@ -136,7 +136,7 @@ def effacer_message_reussi(frame):  # Pour effacer les messages quand on recomme
             widget.destroy()
 
 def bouton_effacer_click(frame, taille): #Permet d'effacer les chiffres saisis par le joueur et recommencer
-    #global jeu_grille, signes, hint_grille
+    global jeu_grille, signes, hint_grille
     sound = pygame.mixer.Sound("music/clickButton.mp3")
     sound.play()  # L'effet du clique
     for widget in frame.winfo_children(): # Effacer le contenu des widgets Entry
@@ -153,8 +153,7 @@ def bouton_effacer_click(frame, taille): #Permet d'effacer les chiffres saisis p
     frame.pack(padx=20, pady=40)  # on utilise padx et pady pour regler les espaces autour du tableau
 
 def bouton_valider_click(reponse_grille, signes_grille):  # Compare la réponse du joueur avec la solution
-    #global solveur
-    #global taille
+    global solveur, taille
     # On controlle tout d'abord si l'utilisateur met des valeurs unique (contrainte 1) afin de mettre dans la fonction (Pour l'optimisation de performance)
     for ligne in range(len(reponse_grille)):
         for colonne in range(len(reponse_grille)):
